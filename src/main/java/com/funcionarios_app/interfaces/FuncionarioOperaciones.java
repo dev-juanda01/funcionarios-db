@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author NATSU DRAGNEEL
  */
 public class FuncionarioOperaciones implements FuncionarioI{
-    private String CREAR = "INSERT INTO funcionarios(numero_identificacion,tipo_identificacion, "
+    private String CREAR = "INSERT INTO funcionarios(numero_identificacion, tipo_identificacion, "
             + "nombres, apellidos, estado_civil, sexo, direccion, telefono, fecha_nacimiento) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private String ACTUALIZAR = "UPDATE funcionarios SET "
@@ -59,7 +59,14 @@ public class FuncionarioOperaciones implements FuncionarioI{
 
     @Override
     public void actualizarFuncionario(Funcionario funcionario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connection conectar  = conexion.conectarDB();
+            PreparedStatement actualizar = conectar.prepareStatement(this.ACTUALIZAR);
+            
+            actualizar.setString(1, funcionario.getTipoIdentificacion());
+        } catch (SQLException e) {
+            
+        }
     }
 
     @Override

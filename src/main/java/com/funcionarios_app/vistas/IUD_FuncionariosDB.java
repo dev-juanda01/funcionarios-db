@@ -6,6 +6,8 @@
 package com.funcionarios_app.vistas;
 
 import com.funcionarios_app.interfaces.FuncionarioOperaciones;
+import com.funcionarios_app.modelos.Funcionario;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -22,9 +24,6 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     List<Object[]> listado = new ArrayList<>();
     FuncionarioOperaciones operacion = new FuncionarioOperaciones();
 
-    /**
-     * Creates new form Vista_V003
-     */
     public IUD_FuncionariosDB() {
         initComponents();
         this.cargarDatosTabla();
@@ -38,6 +37,18 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
             modelo.addRow(funcionario);
         }
         tblFuncionarios.setModel(modelo);
+    }
+    
+    public void limpiarCamposDeTexto() {
+        txtApellidos.setText("");
+        txtDireccion.setText("");
+        txtEstadoCivil.setText("");
+        txtFechaNacimiento.setText("");
+        txtNombres.setText("");
+        txtNumeroIdentificacion.setText("");
+        txtSexo.setText("");
+        txtTelefono.setText("");
+        txtTipoIdentificacion.setText("");
     }
 
     /**
@@ -70,40 +81,41 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFuncionarios = new javax.swing.JTable();
+        btnRecargar = new javax.swing.JButton();
         panelGestion = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNumeroIdentificacion = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTipoIdentificacion = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtNombres = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtApellidos = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtEstadoCivil = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
-        jTextField9 = new javax.swing.JTextField();
+        txtFechaNacimiento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
-        jTextField6 = new javax.swing.JTextField();
+        txtSexo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        btnActualizar1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         panelInfo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -143,7 +155,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         panelInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         faviconInicio.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        faviconInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\favicon.png")); // NOI18N
+        faviconInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\favicon.png")); // NOI18N
         faviconInicio.setText("Inicio");
         panelInicio.add(faviconInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -151,7 +163,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(13, 71, 161));
 
-        logoInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\logo.png")); // NOI18N
+        logoInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\logo.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,6 +215,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         btnEliminar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -214,12 +227,14 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         btnActualizar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelInicio.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, 100, 40));
 
         btnBuscar.setBackground(new java.awt.Color(13, 71, 161));
         btnBuscar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -244,7 +259,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         panelFuncionarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         faviconInicio1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        faviconInicio1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\favicon.png")); // NOI18N
+        faviconInicio1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\favicon.png")); // NOI18N
         faviconInicio1.setText("Funcionarios");
         panelFuncionarios.add(faviconInicio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -253,11 +268,11 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel3.setText("Funcionarios DB");
         panelFuncionarios.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 250, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\logo.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\logo.png")); // NOI18N
         jLabel2.setText("jLabel2");
         panelFuncionarios.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 150, 140));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\city.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\city.png")); // NOI18N
         jLabel1.setText("jLabel1");
         panelFuncionarios.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 500));
 
@@ -281,13 +296,25 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
 
         panelFuncionarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 650, 470));
 
+        btnRecargar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRecargar.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\refresh.png")); // NOI18N
+        btnRecargar.setBorder(null);
+        btnRecargar.setBorderPainted(false);
+        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
+        panelFuncionarios.add(btnRecargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 40, 40));
+
         panelOpciones.addTab("Funcionarios", panelFuncionarios);
 
         panelGestion.setBackground(new java.awt.Color(255, 255, 255));
         panelGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\favicon.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\favicon.png")); // NOI18N
         jLabel4.setText("Gestión Funcionarios");
         panelGestion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 60));
 
@@ -295,131 +322,131 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel6.setText("Numero de Identificación");
         panelGestion.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 30));
 
-        jTextField1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField1.setBorder(null);
-        jTextField1.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNumeroIdentificacion.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtNumeroIdentificacion.setBorder(null);
+        txtNumeroIdentificacion.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtNumeroIdentificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNumeroIdentificacionActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 190, 30));
+        panelGestion.add(txtNumeroIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 300, 30));
         panelGestion.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 300, 10));
 
         jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel7.setText("Tipo de Identificación");
         panelGestion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 170, 30));
 
-        jTextField2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField2.setBorder(null);
-        jTextField2.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtTipoIdentificacion.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtTipoIdentificacion.setBorder(null);
+        txtTipoIdentificacion.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtTipoIdentificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtTipoIdentificacionActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 190, 30));
+        panelGestion.add(txtTipoIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 300, 30));
         panelGestion.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 300, 10));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel8.setText("Nombres");
         panelGestion.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 130, 30));
 
-        jTextField3.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField3.setBorder(null);
-        jTextField3.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtNombres.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtNombres.setBorder(null);
+        txtNombres.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtNombresActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 190, 30));
+        panelGestion.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 300, 30));
         panelGestion.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 300, 10));
 
         jLabel9.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel9.setText("Apellidos");
         panelGestion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, 30));
 
-        jTextField4.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField4.setBorder(null);
-        jTextField4.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtApellidos.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtApellidos.setBorder(null);
+        txtApellidos.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtApellidosActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 190, 30));
+        panelGestion.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 300, 30));
         panelGestion.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 300, 10));
 
         jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel10.setText("Estado Civil");
         panelGestion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 130, 30));
 
-        jTextField5.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField5.setBorder(null);
-        jTextField5.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtEstadoCivil.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtEstadoCivil.setBorder(null);
+        txtEstadoCivil.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtEstadoCivil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtEstadoCivilActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 190, 30));
+        panelGestion.add(txtEstadoCivil, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 300, 30));
         panelGestion.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 300, 10));
 
         jLabel12.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel12.setText("Dirección");
         panelGestion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 130, 30));
 
-        jTextField7.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField7.setBorder(null);
-        jTextField7.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccion.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtDireccion.setBorder(null);
+        txtDireccion.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtDireccionActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 190, 30));
+        panelGestion.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 300, 30));
         panelGestion.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 300, 10));
 
         jLabel13.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel13.setText("Teléfono");
         panelGestion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 130, 30));
 
-        jTextField8.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField8.setBorder(null);
-        jTextField8.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefono.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtTelefono.setBorder(null);
+        txtTelefono.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtTelefonoActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 190, 30));
+        panelGestion.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 300, 30));
         panelGestion.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 300, 10));
 
-        jTextField9.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField9.setBorder(null);
-        jTextField9.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaNacimiento.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtFechaNacimiento.setBorder(null);
+        txtFechaNacimiento.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                txtFechaNacimientoActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 190, 30));
+        panelGestion.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 300, 30));
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de Nacimiento");
         panelGestion.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 190, 30));
         panelGestion.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 300, 10));
 
-        jTextField6.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jTextField6.setBorder(null);
-        jTextField6.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtSexo.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtSexo.setBorder(null);
+        txtSexo.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtSexoActionPerformed(evt);
             }
         });
-        panelGestion.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 190, 30));
+        panelGestion.add(txtSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 300, 30));
 
         jLabel11.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel11.setText("Sexo");
@@ -428,26 +455,32 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(136, 212, 234));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panelGestion.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 290, 110));
+        panelGestion.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, -10, 290, 120));
 
         jLabel16.setFont(new java.awt.Font("Roboto Black", 0, 32)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Funcionarios DB");
         panelGestion.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 250, -1));
 
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\logo.png")); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\logo.png")); // NOI18N
         jLabel14.setText("jLabel2");
         panelGestion.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 150, 140));
 
-        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\city.png")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\city.png")); // NOI18N
         jLabel15.setText("jLabel1");
-        panelGestion.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 500));
+        panelGestion.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 510));
 
-        btnActualizar1.setBackground(new java.awt.Color(13, 71, 161));
-        btnActualizar1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar1.setText("Agregar");
-        panelGestion.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 100, 40));
+        btnAgregar.setBackground(new java.awt.Color(13, 71, 161));
+        btnAgregar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar");
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        panelGestion.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 100, 40));
 
         panelOpciones.addTab("Gestión funcionarios", panelGestion);
 
@@ -455,7 +488,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         panelInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\favicon.png")); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\favicon.png")); // NOI18N
         jLabel17.setText("Información");
         panelInfo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 60));
 
@@ -528,11 +561,11 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel37.setText("Funcionarios DB");
         panelInfo.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 250, -1));
 
-        jLabel35.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\logo.png")); // NOI18N
+        jLabel35.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\logo.png")); // NOI18N
         jLabel35.setText("jLabel2");
         panelInfo.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 150, 140));
 
-        jLabel36.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\material_design\\src\\main\\java\\com.images\\city.png")); // NOI18N
+        jLabel36.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\city.png")); // NOI18N
         jLabel36.setText("jLabel1");
         panelInfo.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 500));
 
@@ -569,41 +602,64 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSexoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtSexoActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoCivilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtEstadoCivilActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtApellidosActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtNombresActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoIdentificacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtTipoIdentificacionActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNumeroIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroIdentificacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNumeroIdentificacionActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO: Agregar un nuevo funcionario
+        Funcionario nuevoFuncionario = new Funcionario();
+        
+        nuevoFuncionario.setNumeroIdentificacion(txtNumeroIdentificacion.getText());
+        nuevoFuncionario.setTipoIdentificacion(txtTipoIdentificacion.getText());
+        nuevoFuncionario.setNombres(txtNombres.getText());
+        nuevoFuncionario.setApellidos(txtApellidos.getText());
+        nuevoFuncionario.setEstadoCivil(txtEstadoCivil.getText());
+        nuevoFuncionario.setSexo(txtSexo.getText().charAt(0));
+        nuevoFuncionario.setDireccion(txtDireccion.getText());
+        nuevoFuncionario.setTelefono(txtTelefono.getText());
+        nuevoFuncionario.setFechaNacimiento(Date.valueOf(txtFechaNacimiento.getText()));
+        
+        operacion.crearFuncionario(nuevoFuncionario);
+        this.limpiarCamposDeTexto();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        // TODO add your handling code here:
+        this.cargarDatosTabla();
+    }//GEN-LAST:event_btnRecargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -643,9 +699,10 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnActualizar1;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRecargar;
     private javax.swing.JLabel faviconInicio;
     private javax.swing.JLabel faviconInicio1;
     private javax.swing.JLabel jLabel1;
@@ -702,16 +759,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel logoInicio;
     private javax.swing.JPanel panelFuncionarios;
     private javax.swing.JPanel panelGestion;
@@ -721,5 +769,14 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelOpciones;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTable tblFuncionarios;
+    private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEstadoCivil;
+    private javax.swing.JTextField txtFechaNacimiento;
+    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtNumeroIdentificacion;
+    private javax.swing.JTextField txtSexo;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTipoIdentificacion;
     // End of variables declaration//GEN-END:variables
 }
