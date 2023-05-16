@@ -103,6 +103,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        btnActualizar1 = new javax.swing.JButton();
         panelInfo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -442,6 +443,12 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel15.setText("jLabel1");
         panelGestion.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 500));
 
+        btnActualizar1.setBackground(new java.awt.Color(13, 71, 161));
+        btnActualizar1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar1.setText("Agregar");
+        panelGestion.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 100, 40));
+
         panelOpciones.addTab("Gestión funcionarios", panelGestion);
 
         panelInfo.setBackground(new java.awt.Color(255, 255, 255));
@@ -609,7 +616,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Window".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -636,6 +643,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel faviconInicio;

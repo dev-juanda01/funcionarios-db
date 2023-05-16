@@ -24,9 +24,9 @@ public class FuncionarioOperaciones implements FuncionarioI{
     private String CREAR = "INSERT INTO funcionarios(numero_identificacion,tipo_identificacion, "
             + "nombres, apellidos, estado_civil, sexo, direccion, telefono, fecha_nacimiento) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private String ACTUALIZAR = "UPDATE funcionarios SET numero_identificacion = ?,"
+    private String ACTUALIZAR = "UPDATE funcionarios SET "
             + "tipo_identificacion = ?, nombres = ?, apellidos = ?, estado_civil = ?, "
-            + "sexo = ?, direccion = ?, telefono = ?, fecha_nacimiento = ? WHERE numero_identificacion = ?;";
+            + "sexo = ?, direccion = ?, telefono = ? WHERE numero_identificacion = ?;";
     private String ELIMINAR = "DELETE FROM funcionarios WHERE numero_identificacion = ?;";
     private String BUSCAR = "SELECT * FROM funcionarios WHERE numero_identificacion = ?;";
     private String LISTAR = "SELECT * FROM funcionarios;";
