@@ -16,6 +16,7 @@ public interface FuncionarioI {
     public void crearFuncionario(Funcionario funcionario);
     public void actualizarFuncionario(Funcionario funcionario);
     public void eliminarFuncionario(Funcionario funcionario);
-    public void buscarFuncionario(Funcionario funcionario);
+    public Funcionario buscarFuncionario(String numeroIdentificacion);
     public List<Object[]> listarFuncionarios();
+    public List<String> listarTiposIdentificaciones();   
 }

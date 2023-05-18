@@ -10,6 +10,7 @@ import com.funcionarios_app.modelos.Funcionario;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,8 +18,9 @@ import javax.swing.table.DefaultTableModel;
  * @author NATSU DRAGNEEL
  */
 public class IUD_FuncionariosDB extends javax.swing.JFrame {
-    String columnas[] = {"ID", "N° de Identificación", "Tipo Identificación", 
-        "Nombres", "Apellidos", "Estado civil", "Sexo", "Dirección", "Telefono", 
+
+    String columnas[] = {"ID", "N° de Identificación", "Tipo Identificación",
+        "Nombres", "Apellidos", "Estado civil", "Sexo", "Dirección", "Telefono",
         "Fecha nacimiento"};
     DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
     List<Object[]> listado = new ArrayList<>();
@@ -27,18 +29,22 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     public IUD_FuncionariosDB() {
         initComponents();
         this.cargarDatosTabla();
+
+        for (String item : operacion.listarTiposIdentificaciones()) {
+            cbxTipoIdentificacion.addItem(item);
+        }
     }
-    
+
     private void cargarDatosTabla() {
         this.listado = operacion.listarFuncionarios();
         modelo.setNumRows(0);
-        
-        for(Object [] funcionario : this.listado) {
+
+        for (Object[] funcionario : this.listado) {
             modelo.addRow(funcionario);
         }
         tblFuncionarios.setModel(modelo);
     }
-    
+
     public void limpiarCamposDeTexto() {
         txtApellidos.setText("");
         txtDireccion.setText("");
@@ -46,9 +52,17 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         txtFechaNacimiento.setText("");
         txtNombres.setText("");
         txtNumeroIdentificacion.setText("");
-        txtSexo.setText("");
+        cbxSexo.setSelectedItem("-- Seleccione --");
         txtTelefono.setText("");
-        txtTipoIdentificacion.setText("");
+        cbxTipoIdentificacion.setSelectedItem("-- Seleccione --");
+    }
+
+    public Boolean validarCampoVacio(String campo, String label) {
+        if (campo.trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingresa el " + label);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -71,7 +85,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jTextField11 = new javax.swing.JTextField();
+        txtBusqueda = new javax.swing.JTextField();
         jSeparator11 = new javax.swing.JSeparator();
         panelFuncionarios = new javax.swing.JPanel();
         faviconInicio1 = new javax.swing.JLabel();
@@ -88,8 +102,6 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         txtNumeroIdentificacion = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        txtTipoIdentificacion = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
@@ -108,14 +120,14 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         txtFechaNacimiento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
-        txtSexo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
+        cbxTipoIdentificacion = new javax.swing.JComboBox<>();
+        cbxSexo = new javax.swing.JComboBox<>();
         panelInfo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -127,19 +139,21 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
+        lblSexo = new javax.swing.JLabel();
+        lblNumeroIdentificacion = new javax.swing.JLabel();
+        lblTipoIdentificacion = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
+        lblEstadoCivil = new javax.swing.JLabel();
+        lblDireccion = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        lblFechaNacimiento = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
+        lblApellidos = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -228,6 +242,11 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         panelInicio.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, 100, 40));
 
         btnBuscar.setBackground(new java.awt.Color(13, 71, 161));
@@ -242,15 +261,15 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         });
         panelInicio.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 90, 40));
 
-        jTextField11.setFont(new java.awt.Font("Roboto Light", 1, 13)); // NOI18N
-        jTextField11.setBorder(null);
-        jTextField11.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        txtBusqueda.setFont(new java.awt.Font("Roboto Light", 1, 13)); // NOI18N
+        txtBusqueda.setBorder(null);
+        txtBusqueda.setCaretColor(new java.awt.Color(153, 153, 153));
+        txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                txtBusquedaActionPerformed(evt);
             }
         });
-        panelInicio.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 290, 40));
+        panelInicio.add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 290, 40));
         panelInicio.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 330, 10));
 
         panelOpciones.addTab("Inicio", panelInicio);
@@ -294,7 +313,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblFuncionarios);
 
-        panelFuncionarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 650, 470));
+        panelFuncionarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 680, 500));
 
         btnRecargar.setBackground(new java.awt.Color(255, 255, 255));
         btnRecargar.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\refresh.png")); // NOI18N
@@ -306,7 +325,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
                 btnRecargarActionPerformed(evt);
             }
         });
-        panelFuncionarios.add(btnRecargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 40, 40));
+        panelFuncionarios.add(btnRecargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 40, 40));
 
         panelOpciones.addTab("Funcionarios", panelFuncionarios);
 
@@ -336,17 +355,6 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel7.setText("Tipo de Identificación");
         panelGestion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 170, 30));
-
-        txtTipoIdentificacion.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        txtTipoIdentificacion.setBorder(null);
-        txtTipoIdentificacion.setCaretColor(new java.awt.Color(153, 153, 153));
-        txtTipoIdentificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTipoIdentificacionActionPerformed(evt);
-            }
-        });
-        panelGestion.add(txtTipoIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 300, 30));
-        panelGestion.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 300, 10));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel8.setText("Nombres");
@@ -406,7 +414,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
             }
         });
         panelGestion.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 300, 30));
-        panelGestion.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 300, 10));
+        panelGestion.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 290, 10));
 
         jLabel13.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel13.setText("Teléfono");
@@ -421,7 +429,7 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
             }
         });
         panelGestion.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 300, 30));
-        panelGestion.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 300, 10));
+        panelGestion.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 290, 10));
 
         txtFechaNacimiento.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         txtFechaNacimiento.setBorder(null);
@@ -436,22 +444,11 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de Nacimiento");
         panelGestion.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 190, 30));
-        panelGestion.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 300, 10));
-
-        txtSexo.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        txtSexo.setBorder(null);
-        txtSexo.setCaretColor(new java.awt.Color(153, 153, 153));
-        txtSexo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSexoActionPerformed(evt);
-            }
-        });
-        panelGestion.add(txtSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 300, 30));
+        panelGestion.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 290, 10));
 
         jLabel11.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel11.setText("Sexo");
         panelGestion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 130, 30));
-        panelGestion.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, 300, 10));
 
         jPanel5.setBackground(new java.awt.Color(136, 212, 234));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -482,6 +479,26 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         });
         panelGestion.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 100, 40));
 
+        cbxTipoIdentificacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --" }));
+        cbxTipoIdentificacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        cbxTipoIdentificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoIdentificacionActionPerformed(evt);
+            }
+        });
+        panelGestion.add(cbxTipoIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 300, 30));
+
+        cbxSexo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "M", "F", "O" }));
+        cbxSexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        cbxSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxSexoActionPerformed(evt);
+            }
+        });
+        panelGestion.add(cbxSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 290, 30));
+
         panelOpciones.addTab("Gestión funcionarios", panelGestion);
 
         panelInfo.setBackground(new java.awt.Color(255, 255, 255));
@@ -492,65 +509,73 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel17.setText("Información");
         panelInfo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 60));
 
-        jLabel18.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel18.setText("Numero de Identificación");
-        panelInfo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 30));
+        panelInfo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 180, 30));
 
-        jLabel19.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel19.setText("Tipo de Identificación");
-        panelInfo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 170, 30));
+        panelInfo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 170, 30));
 
-        jLabel20.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel20.setText("Nombres");
-        panelInfo.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 130, 30));
+        panelInfo.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 130, 30));
 
-        jLabel21.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel21.setText("Apellidos");
-        panelInfo.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, 30));
+        panelInfo.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 130, 30));
 
-        jLabel22.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel22.setText("Estado Civil");
-        panelInfo.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 130, 30));
+        panelInfo.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 490, 130, 30));
 
-        jLabel23.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel23.setText("Dirección");
-        panelInfo.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 130, 30));
+        panelInfo.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 130, 30));
 
-        jLabel24.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel24.setText("Teléfono");
-        panelInfo.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 130, 30));
+        panelInfo.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 130, 30));
 
-        jLabel25.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel25.setText("Fecha de Nacimiento");
-        panelInfo.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 190, 30));
+        panelInfo.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 130, 30));
 
-        jLabel26.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel26.setText("Sexo");
-        panelInfo.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 130, 30));
+        panelInfo.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 130, 30));
 
-        jLabel27.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 220, 30));
+        lblSexo.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblSexo.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 160, 30));
 
-        jLabel28.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 220, 30));
+        lblNumeroIdentificacion.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblNumeroIdentificacion.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblNumeroIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 160, 30));
 
-        jLabel29.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 220, 30));
+        lblTipoIdentificacion.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblTipoIdentificacion.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblTipoIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 160, 30));
 
-        jLabel30.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 220, 30));
+        lblNombres.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblNombres.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 170, 30));
 
-        jLabel31.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 220, 30));
+        lblEstadoCivil.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblEstadoCivil.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblEstadoCivil, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 520, 170, 30));
 
-        jLabel32.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 220, 30));
+        lblDireccion.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblDireccion.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 180, 30));
 
-        jLabel33.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 220, 30));
+        lblTelefono.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblTelefono.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 170, 30));
 
-        jLabel34.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 220, 30));
+        lblFechaNacimiento.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblFechaNacimiento.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 160, 30));
 
         jPanel6.setBackground(new java.awt.Color(136, 212, 234));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -569,8 +594,17 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         jLabel36.setText("jLabel1");
         panelInfo.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 290, 500));
 
-        jLabel38.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        panelInfo.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 220, 30));
+        lblApellidos.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblApellidos.setText("xxxxxxxxxxxxxxxxxxxx");
+        panelInfo.add(lblApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 160, 30));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\avatar.png")); // NOI18N
+        jLabel27.setText("jLabel27");
+        panelInfo.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 100, 90));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon("C:\\Users\\NATSU DRAGNEEL\\Documents\\NetBeansProjects\\funcionarios-app\\src\\main\\java\\com.funcionarios_app.assets\\card.PNG")); // NOI18N
+        jLabel28.setText("jLabel28");
+        panelInfo.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 440, 520));
 
         panelOpciones.addTab("Información", panelInfo);
 
@@ -591,20 +625,58 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+
+        if (txtBusqueda.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingresa el numero de identificación");
+        } else {
+            Funcionario funcionarioEncontrado = operacion.buscarFuncionario(txtBusqueda.getText());
+
+            if (funcionarioEncontrado.getNumeroIdentificacion() == null) {
+                JOptionPane.showMessageDialog(null, "El funcionario con numero de "
+                        + "identificacion '" + txtBusqueda.getText() + "' no existe");
+            } else {
+                panelOpciones.setSelectedIndex(3);
+                lblNumeroIdentificacion.setText(funcionarioEncontrado.getNumeroIdentificacion());
+                lblTipoIdentificacion.setText(funcionarioEncontrado.getTipoIdentificacion());
+                lblNombres.setText(funcionarioEncontrado.getNombres());
+                lblApellidos.setText(funcionarioEncontrado.getApellidos());
+                lblEstadoCivil.setText(funcionarioEncontrado.getEstadoCivil());
+                lblDireccion.setText(funcionarioEncontrado.getDireccion());
+                lblSexo.setText(String.valueOf(funcionarioEncontrado.getSexo()));
+                lblTelefono.setText(funcionarioEncontrado.getTelefono());
+                lblFechaNacimiento.setText(funcionarioEncontrado.getFechaNacimiento().toString());
+                txtBusqueda.setText("");
+
+            }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_txtBusquedaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarActionPerformed
+        // TODO: Eliminar Campo
+        if (txtBusqueda.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingresa el numero de identificación");
+        } else {
+            Funcionario funcionario = operacion.buscarFuncionario(txtBusqueda.getText());
+            
+            if(funcionario.getNumeroIdentificacion() == null) {
+                JOptionPane.showMessageDialog(null, "El funcionario con numero de "
+                        + "identificacion '" + txtBusqueda.getText() + "' no existe");
+                return;
+            } else {
+                int opt = JOptionPane.showConfirmDialog(null, "¿Estas seguro de eliminar este funcionario?", "Confirmar salida",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-    private void txtSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSexoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSexoActionPerformed
+                if (opt == 0) {
+                     operacion.eliminarFuncionario(funcionario);
+                     txtBusqueda.setText("");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
         // TODO add your handling code here:
@@ -630,10 +702,6 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresActionPerformed
 
-    private void txtTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoIdentificacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTipoIdentificacionActionPerformed
-
     private void txtNumeroIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroIdentificacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroIdentificacionActionPerformed
@@ -641,25 +709,194 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO: Agregar un nuevo funcionario
         Funcionario nuevoFuncionario = new Funcionario();
-        
-        nuevoFuncionario.setNumeroIdentificacion(txtNumeroIdentificacion.getText());
-        nuevoFuncionario.setTipoIdentificacion(txtTipoIdentificacion.getText());
-        nuevoFuncionario.setNombres(txtNombres.getText());
-        nuevoFuncionario.setApellidos(txtApellidos.getText());
-        nuevoFuncionario.setEstadoCivil(txtEstadoCivil.getText());
-        nuevoFuncionario.setSexo(txtSexo.getText().charAt(0));
-        nuevoFuncionario.setDireccion(txtDireccion.getText());
-        nuevoFuncionario.setTelefono(txtTelefono.getText());
-        nuevoFuncionario.setFechaNacimiento(Date.valueOf(txtFechaNacimiento.getText()));
-        
-        operacion.crearFuncionario(nuevoFuncionario);
-        this.limpiarCamposDeTexto();
+
+        if (btnAgregar.getText().equals("Agregar")) {
+            String campo = txtNumeroIdentificacion.getText();
+            if (this.validarCampoVacio(campo, "numero de identificación")) {
+                nuevoFuncionario.setNumeroIdentificacion(campo);
+            } else {
+                return;
+            }
+
+            campo = cbxTipoIdentificacion.getSelectedItem().toString();
+            if (cbxTipoIdentificacion.getSelectedItem() == "-- Seleccione --") {
+                JOptionPane.showMessageDialog(null, "Ingresa el tipo de identificación");
+                return;
+            } else {
+                nuevoFuncionario.setTipoIdentificacion(campo);
+            }
+
+            campo = txtNombres.getText();
+            if (this.validarCampoVacio(campo, "nombres")) {
+                nuevoFuncionario.setNombres(campo);
+            } else {
+                return;
+            }
+
+            campo = txtApellidos.getText();
+            if (this.validarCampoVacio(campo, "apellidos")) {
+                nuevoFuncionario.setApellidos(campo);
+            } else {
+                return;
+            }
+
+            campo = txtEstadoCivil.getText();
+            if (this.validarCampoVacio(campo, "estado civil")) {
+                nuevoFuncionario.setEstadoCivil(campo);
+            } else {
+                return;
+            }
+
+            campo = txtDireccion.getText();
+            if (this.validarCampoVacio(campo, "dirección")) {
+                nuevoFuncionario.setDireccion(campo);
+            } else {
+                return;
+            }
+
+            campo = txtTelefono.getText();
+            if (this.validarCampoVacio(campo, "telefono")) {
+                nuevoFuncionario.setTelefono(txtTelefono.getText());
+            } else {
+                return;
+            }
+
+            campo = txtFechaNacimiento.getText();
+            try {
+                if (this.validarCampoVacio(campo, "fecha de nacimiento")) {
+                    nuevoFuncionario.setFechaNacimiento(Date.valueOf(campo));
+                } else {
+                    return;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha invalido. Utiliza 'YYYY-MM-DD'");
+                return;
+            }
+
+            char campoChar = cbxSexo.getSelectedItem().toString().charAt(0);
+            if (cbxSexo.getSelectedItem() == "-- Seleccione --") {
+                JOptionPane.showMessageDialog(null, "Ingresa el sexo");
+                return;
+            } else {
+                nuevoFuncionario.setSexo(campoChar);
+            }
+
+            operacion.crearFuncionario(nuevoFuncionario);
+            this.limpiarCamposDeTexto();
+        } else {
+            String campo = txtNumeroIdentificacion.getText();
+            nuevoFuncionario.setNumeroIdentificacion(campo);
+
+            campo = cbxTipoIdentificacion.getSelectedItem().toString();
+            if (cbxTipoIdentificacion.getSelectedItem() == "-- Seleccione --") {
+                JOptionPane.showMessageDialog(null, "Ingresa el tipo de identificación");
+                return;
+            } else {
+                nuevoFuncionario.setTipoIdentificacion(campo);
+            }
+
+            campo = txtNombres.getText();
+            if (this.validarCampoVacio(campo, "nombres")) {
+                nuevoFuncionario.setNombres(campo);
+            } else {
+                return;
+            }
+
+            campo = txtApellidos.getText();
+            if (this.validarCampoVacio(campo, "apellidos")) {
+                nuevoFuncionario.setApellidos(campo);
+            } else {
+                return;
+            }
+
+            campo = txtEstadoCivil.getText();
+            if (this.validarCampoVacio(campo, "estado civil")) {
+                nuevoFuncionario.setEstadoCivil(campo);
+            } else {
+                return;
+            }
+
+            campo = txtDireccion.getText();
+            if (this.validarCampoVacio(campo, "dirección")) {
+                nuevoFuncionario.setDireccion(campo);
+            } else {
+                return;
+            }
+
+            campo = txtTelefono.getText();
+            if (this.validarCampoVacio(campo, "telefono")) {
+                nuevoFuncionario.setTelefono(txtTelefono.getText());
+            } else {
+                return;
+            }
+
+            campo = txtFechaNacimiento.getText();
+            if (this.validarCampoVacio(campo, "fecha de nacimiento")) {
+                nuevoFuncionario.setFechaNacimiento(Date.valueOf(campo));
+            } else {
+                return;
+            }
+
+            char campoChar = cbxSexo.getSelectedItem().toString().charAt(0);
+            if (cbxSexo.getSelectedItem() == "-- Seleccione --") {
+                JOptionPane.showMessageDialog(null, "Ingresa el sexo");
+                return;
+            } else {
+                nuevoFuncionario.setSexo(campoChar);
+            }
+
+            operacion.actualizarFuncionario(nuevoFuncionario);
+            this.limpiarCamposDeTexto();
+            btnAgregar.setText("Agregar");
+            txtNumeroIdentificacion.setEditable(true);
+            txtFechaNacimiento.setEditable(true);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
-        // TODO add your handling code here:
         this.cargarDatosTabla();
     }//GEN-LAST:event_btnRecargarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO: Actualizar funcionario
+        if (txtBusqueda.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingresa el numero de identificación");
+        } else {
+            Funcionario funcionarioEncontrado = operacion.buscarFuncionario(txtBusqueda.getText());
+
+            if (funcionarioEncontrado.getNumeroIdentificacion() == null) {
+                JOptionPane.showMessageDialog(null, "El funcionario con numero de "
+                        + "identificacion '" + txtBusqueda.getText() + "' no existe");
+            } else {
+                btnAgregar.setText("Editar");
+                panelOpciones.setSelectedIndex(2);
+
+                txtNumeroIdentificacion.setEditable(false);
+                txtNumeroIdentificacion.setText(funcionarioEncontrado.getNumeroIdentificacion());
+
+                cbxTipoIdentificacion.setSelectedItem(funcionarioEncontrado.getTipoIdentificacion());
+                txtNombres.setText(funcionarioEncontrado.getNombres());
+                txtApellidos.setText(funcionarioEncontrado.getApellidos());
+                txtEstadoCivil.setText(funcionarioEncontrado.getEstadoCivil());
+                txtDireccion.setText(funcionarioEncontrado.getDireccion());
+                cbxSexo.setSelectedItem(String.valueOf(funcionarioEncontrado.getSexo()));
+                txtTelefono.setText(funcionarioEncontrado.getTelefono());
+
+                txtFechaNacimiento.setText(funcionarioEncontrado.getFechaNacimiento().toString());
+                txtFechaNacimiento.setEditable(false);
+                txtBusqueda.setText("");
+            }
+        }
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void cbxTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoIdentificacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTipoIdentificacionActionPerformed
+
+    private void cbxSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxSexoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -703,6 +940,8 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRecargar;
+    private javax.swing.JComboBox<String> cbxSexo;
+    private javax.swing.JComboBox<String> cbxTipoIdentificacion;
     private javax.swing.JLabel faviconInicio;
     private javax.swing.JLabel faviconInicio1;
     private javax.swing.JLabel jLabel1;
@@ -726,17 +965,10 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -752,14 +984,20 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField11;
+    private javax.swing.JLabel lblApellidos;
+    private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblEstadoCivil;
+    private javax.swing.JLabel lblFechaNacimiento;
+    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblNumeroIdentificacion;
+    private javax.swing.JLabel lblSexo;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTipoIdentificacion;
     private javax.swing.JLabel logoInicio;
     private javax.swing.JPanel panelFuncionarios;
     private javax.swing.JPanel panelGestion;
@@ -770,13 +1008,12 @@ public class IUD_FuncionariosDB extends javax.swing.JFrame {
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTable tblFuncionarios;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEstadoCivil;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNumeroIdentificacion;
-    private javax.swing.JTextField txtSexo;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTipoIdentificacion;
     // End of variables declaration//GEN-END:variables
 }
